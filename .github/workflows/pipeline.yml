@@ -24,14 +24,14 @@ jobs:
               run : npm install
             - name: Check style
               run : npm run eslint
-            # - name: build the project
-            #   run : npm run build
-            # - name: e2e tests
-            #   uses: cypress-io/github-action@v5
-            #   with:
-            #     command: npm run test:e2e
-            #     start: npm run start-prod
-            #     wait-on: http://localhost:5000
+            - name: build the project
+              run : npm run build
+            - name: e2e tests
+              uses: cypress-io/github-action@v5
+              with:
+                command: npm run test:e2e
+                start: npm run start-prod
+                wait-on: http://localhost:5000
             - name: Deploy
               # Only run this step if the branch is master
               if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' && !contains(toJson(github.event.commits.*.message),'#skip') }}
